@@ -187,12 +187,12 @@ class AppTheme {
           ),
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: const CardTheme(
         color: Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: cardBorder),
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+          side: BorderSide(color: cardBorder),
         ),
         margin: EdgeInsets.zero,
       ),

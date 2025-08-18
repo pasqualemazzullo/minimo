@@ -1,0 +1,37 @@
+name: minimo
+description: "Un'applicazione minimalista per gestire gli alimenti e rudurre al minimo gli sprechi."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  unicons: ^1.0.0+2
+  flutter_dotenv: ^5.2.1
+  supabase_flutter: ^2.9.1
+  shared_preferences: ^2.5.3
+  get_it: ^8.0.2
+  provider: ^6.1.2
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env
+
+  fonts:
+    - family: ArticulatCF
+      fonts:
+        - asset: assets/fonts/ArticulatCF-Regular.otf

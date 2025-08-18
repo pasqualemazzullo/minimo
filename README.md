@@ -13,7 +13,7 @@ Un'applicazione Flutter minimalista e pulita per gestire la tua spesa, la tua di
 
 ### 1. Clona il repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/pasqualemazzullo/minimo.git
 cd minimo
 ```
 
@@ -31,12 +31,22 @@ flutter pub get
 ```
 
 ### 5. Configura l'ambiente
-1. Copia il file `.env.example` in `.env` (se presente)
-2. Configura le tue credenziali Supabase nel file `.env`:
+1. Crea un file `.env` nella root del progetto:
+   ```bash
+   touch .env
    ```
-   SUPABASE_URL=your_supabase_url
+
+2. Apri il file `.env` e aggiungi le tue credenziali Supabase:
+   ```
+   SUPABASE_URL=your_supabase_project_url
    SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
+
+   **Come ottenere le credenziali Supabase:**
+   - Vai su [supabase.com](https://supabase.com) e crea un account
+   - Crea un nuovo progetto
+   - Vai in Settings > API
+   - Copia l'URL del progetto e la chiave anonima
 
 ### 6. Esegui l'app
 ```bash

@@ -65,116 +65,119 @@ class SettingsScreen extends StatelessWidget {
     final isEmailConfirmed = user?.emailConfirmedAt != null;
 
     return Card(
-          margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-          color: AppTheme.white,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: AppTheme.cardBorder),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              children: [
-                // Avatar
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: AppTheme.primaryColor.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(40),
-                    border: Border.all(
-                      color: AppTheme.primaryColor.withValues(alpha: 0.2),
-                      width: 2,
+      margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+      color: AppTheme.white,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: const BorderSide(color: AppTheme.cardBorder),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            // Avatar
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: AppTheme.primaryColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(40),
+                border: Border.all(
+                  color: AppTheme.primaryColor.withValues(alpha: 0.2),
+                  width: 2,
+                ),
+              ),
+              child: Center(
+                child:
+                    fullName != null && fullName.isNotEmpty
+                        ? Text(
+                          fullName[0].toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.primaryColor,
+                          ),
+                        )
+                        : email.isNotEmpty
+                        ? Text(
+                          email[0].toUpperCase(),
+                          style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.primaryColor,
+                          ),
+                        )
+                        : const Icon(
+                          UniconsLine.user,
+                          size: 40,
+                          color: AppTheme.primaryColor,
+                        ),
+              ),
+            ),
+
+            const SizedBox(width: 16),
+
+            // Informazioni utente
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    fullName ?? email.split('@')[0],
+                    style: AppTheme.textLargeBold,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    email,
+                    style: AppTheme.textMedium.copyWith(
+                      color: AppTheme.grey600,
                     ),
                   ),
-                  child: Center(
-                    child: fullName != null && fullName.isNotEmpty
-                        ? Text(
-                            fullName[0].toUpperCase(),
-                            style: const TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: AppTheme.primaryColor,
-                            ),
-                          )
-                        : email.isNotEmpty
-                            ? Text(
-                                email[0].toUpperCase(),
-                                style: const TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppTheme.primaryColor,
-                                ),
-                              )
-                            : const Icon(
-                                UniconsLine.user,
-                                size: 40,
-                                color: AppTheme.primaryColor,
-                              ),
-                  ),
-                ),
-
-                const SizedBox(width: 16),
-
-                // Informazioni utente
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        fullName ?? email.split('@')[0],
-                        style: AppTheme.textLargeBold,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        email,
-                        style: AppTheme.textMedium.copyWith(
-                          color: AppTheme.grey600,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isEmailConfirmed
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          isEmailConfirmed
                               ? AppTheme.successColor.withValues(alpha: 0.1)
                               : AppTheme.warningColor.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          isEmailConfirmed 
-                              ? 'Email verificata'
-                              : 'Email non verificata',
-                          style: AppTheme.textSmall.copyWith(
-                            color: isEmailConfirmed
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      isEmailConfirmed
+                          ? 'Email verificata'
+                          : 'Email non verificata',
+                      style: AppTheme.textSmall.copyWith(
+                        color:
+                            isEmailConfirmed
                                 ? AppTheme.successColor
                                 : AppTheme.warningColor,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        fontWeight: FontWeight.w500,
                       ),
-                    ],
+                    ),
                   ),
-                ),
-
-                // Pulsante modifica
-                IconButton(
-                  onPressed: () {
-                    // Non fare nulla quando viene cliccato
-                  },
-                  icon: const Icon(
-                    UniconsLine.edit_alt,
-                    color: AppTheme.primaryColor,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
+
+            // Pulsante modifica
+            IconButton(
+              onPressed: () {
+                // Non fare nulla quando viene cliccato
+              },
+              icon: const Icon(
+                UniconsLine.edit_alt,
+                color: AppTheme.primaryColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildBadgesSection(BuildContext context) {
@@ -203,7 +206,7 @@ class SettingsScreen extends StatelessWidget {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
+                    mainAxisSpacing: 0,
                     childAspectRatio: 0.8,
                   ),
                   itemCount: _badges.length,
@@ -277,13 +280,24 @@ class SettingsScreen extends StatelessWidget {
               width: 2,
             ),
           ),
-          child: Center(
-            child: Text(
-              badge.emoji,
-              style: TextStyle(
-                fontSize: 24,
-                color: isEarned ? null : AppTheme.grey600,
-              ),
+          child: ClipOval(
+            child: Image.asset(
+              'assets/images/${badge.id == 'first_shopping'
+                  ? 'badge_1.jpg'
+                  : badge.id == 'organizer'
+                  ? 'badge_2.jpg'
+                  : badge.id == 'zero_waste'
+                  ? 'badge_3.jpg'
+                  : badge.id == 'expert'
+                  ? 'badge_4.jpg'
+                  : badge.id == 'bring_friend'
+                  ? 'badge_5.jpg'
+                  : 'badge_6.jpg'}',
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+              color: isEarned ? null : AppTheme.grey600,
+              colorBlendMode: isEarned ? null : BlendMode.saturation,
             ),
           ),
         ),
@@ -291,8 +305,8 @@ class SettingsScreen extends StatelessWidget {
         Text(
           badge.name,
           style: AppTheme.textSmall.copyWith(
-            color: isEarned ? AppTheme.black87 : AppTheme.grey600,
-            fontWeight: isEarned ? FontWeight.w500 : FontWeight.normal,
+            color: isEarned ? AppTheme.primaryColor : AppTheme.grey600,
+            fontWeight: isEarned ? FontWeight.bold : FontWeight.normal,
           ),
           textAlign: TextAlign.center,
           maxLines: 2,
@@ -426,13 +440,11 @@ class SettingsScreen extends StatelessWidget {
 class Badge {
   final String id;
   final String name;
-  final String emoji;
   final String description;
 
   const Badge({
     required this.id,
     required this.name,
-    required this.emoji,
     required this.description,
   });
 }
@@ -440,46 +452,40 @@ class Badge {
 // Badge disponibili (simulati)
 const List<Badge> _badges = [
   Badge(
-    id: 'first_save',
-    name: 'Primo Salvataggio',
-    emoji: '🌱',
-    description: 'Hai salvato il tuo primo alimento',
+    id: 'first_shopping',
+    name: 'Prima Spesa',
+    description: 'Hai completato la tua prima spesa',
   ),
   Badge(
-    id: 'waste_warrior',
-    name: 'Guerriero Anti-spreco',
-    emoji: '⚔️',
-    description: 'Hai evitato 10 sprechi alimentari',
+    id: 'organizer',
+    name: 'Organizzatore',
+    description: 'Hai organizzato perfettamente il tuo inventario',
   ),
   Badge(
-    id: 'shopping_master',
-    name: 'Maestro della Spesa',
-    emoji: '🛒',
-    description: 'Hai completato 20 liste della spesa',
+    id: 'zero_waste',
+    name: 'Zero Sprechi',
+    description: 'Hai evitato completamente gli sprechi alimentari',
   ),
   Badge(
-    id: 'inventory_king',
-    name: 'Re dell\'Inventario',
-    emoji: '👑',
-    description: 'Hai gestito 100 prodotti',
+    id: 'expert',
+    name: 'Esperto',
+    description: 'Hai raggiunto un livello di expertise avanzato',
   ),
   Badge(
-    id: 'eco_hero',
-    name: 'Eroe Ecologico',
-    emoji: '🦸',
-    description: 'Hai salvato 50 kg di cibo',
+    id: 'bring_friend',
+    name: 'Porta un Amico',
+    description: 'Hai invitato un amico ad utilizzare l\'app',
   ),
   Badge(
-    id: 'streak_champion',
-    name: 'Campione di Costanza',
-    emoji: '🔥',
-    description: 'Hai usato l\'app per 30 giorni consecutivi',
+    id: 'saver',
+    name: 'Risparmiatore',
+    description: 'Hai risparmiato una quantità significativa di denaro',
   ),
 ];
 
 // Badge ottenuti dall'utente (simulati - dovrebbero venire dal backend)
 const List<String> _earnedBadges = [
-  'first_save',
-  'waste_warrior',
-  'shopping_master',
+  'first_shopping',
+  'organizer',
+  'zero_waste',
 ];

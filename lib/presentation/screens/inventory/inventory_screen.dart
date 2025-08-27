@@ -148,12 +148,29 @@ class InventoryScreenState extends State<InventoryScreen> {
               ? Center(
                 child: CircularProgressIndicator(color: AppTheme.primaryColor),
               )
-              : currentInventories.isEmpty
+              : (currentInventories.isEmpty || 
+                   (foodController.freshItemsCount == 0 && 
+                    foodController.outOfStockItemsCount == 0 && 
+                    foodController.expiredItemsCount == 0))
               ? Center(
-                child: Text(
-                  'Nessun inventario trovato.\nCreane uno nuovo!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: AppTheme.grey, fontSize: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/inventory_empty.png',
+                      width: 300,
+                      height: 300,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Ops! Forse dovresti proprio andare a fare la spesa...',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppTheme.grey600,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
               )
               : Column(
@@ -404,6 +421,30 @@ class InventoryScreenState extends State<InventoryScreen> {
       }
       return isAscending ? comparison : -comparison;
     });
+
+    if (items.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/inventory_empty.png',
+              width: 300,
+              height: 300,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Ops! Forse dovresti proprio andare a fare la spesa...',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: AppTheme.grey600,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
 
     return ListView.builder(
       itemCount: items.length,

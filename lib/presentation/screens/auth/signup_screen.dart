@@ -99,60 +99,60 @@ class _SignUpScreenState extends State<SignUpScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => SimpleDialog(
-        title: const Text(
-          'Registrazione completata!',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: AppTheme.primaryColor,
-          ),
-        ),
-        backgroundColor: AppTheme.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: AppTheme.cardBorder),
-        ),
-        contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
-        children: [
-          const Text(
-            'Il tuo account è stato creato con successo. Controlla la tua email per confermare l\'account.',
-            style: TextStyle(
-              fontSize: 14,
-              color: AppTheme.black,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Chiudi dialog
-                  Navigator.of(context).pop(); // Torna alla schermata di login
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primaryColor,
-                  foregroundColor: AppTheme.white,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(99),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 12,
-                  ),
-                  textStyle: const TextStyle(
-                    fontFamily: AppConstants.fontFamily,
-                    fontSize: 14,
-                  ),
-                ),
-                child: const Text('OK'),
+      builder:
+          (context) => SimpleDialog(
+            title: const Text(
+              'Registrazione completata!',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: AppTheme.primaryColor,
               ),
+            ),
+            backgroundColor: AppTheme.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: const BorderSide(color: AppTheme.cardBorder),
+            ),
+            contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
+            children: [
+              const Text(
+                'Il tuo account è stato creato con successo. Controlla la tua email per confermare l\'account.',
+                style: TextStyle(fontSize: 14, color: AppTheme.black),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Chiudi dialog
+                      Navigator.of(
+                        context,
+                      ).pop(); // Torna alla schermata di login
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.primaryColor,
+                      foregroundColor: AppTheme.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(99),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
+                      textStyle: const TextStyle(
+                        fontFamily: AppConstants.fontFamily,
+                        fontSize: 14,
+                      ),
+                    ),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
             ],
           ),
-          const SizedBox(height: 8),
-        ],
-      ),
     );
   }
 
@@ -176,14 +176,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
                           'Partiamo da qui!',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.black,
-                          ),
+                          textAlign: TextAlign.center,
+                          style: AppTheme.headline2,
                         ),
                         const SizedBox(height: 5),
                         const Text(

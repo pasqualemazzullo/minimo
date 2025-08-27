@@ -82,7 +82,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const LoginScreen(),
+        pageBuilder:
+            (context, animation, secondaryAnimation) => const LoginScreen(),
         transitionDuration: const Duration(milliseconds: 800),
         reverseTransitionDuration: const Duration(milliseconds: 400),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -91,9 +92,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           const end = Offset.zero;
           const curve = Curves.easeInOutCubic;
 
-          final slideAnimation = Tween(begin: begin, end: end).animate(
-            CurvedAnimation(parent: animation, curve: curve),
-          );
+          final slideAnimation = Tween(
+            begin: begin,
+            end: end,
+          ).animate(CurvedAnimation(parent: animation, curve: curve));
 
           final fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
@@ -122,16 +124,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       curve: const Interval(0.0, 0.6, curve: Curves.easeInOut),
                     ),
                   ),
-                  child: Container(), // This will be the current onboarding screen
+                  child:
+                      Container(), // This will be the current onboarding screen
                 ),
               ),
               // Incoming screen (login) with slide and fade
               SlideTransition(
                 position: slideAnimation,
-                child: FadeTransition(
-                  opacity: fadeAnimation,
-                  child: child,
-                ),
+                child: FadeTransition(opacity: fadeAnimation, child: child),
               ),
             ],
           );
@@ -253,25 +253,21 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         children: [
                           // Illustration
                           Expanded(
-                            flex: 3,
+                            flex: 4,
                             child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 20),
+                              margin: const EdgeInsets.only(top: 20, bottom: 0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
                                 color: AppTheme.grey50,
                               ),
                               child: Center(
-                                child: Container(
-                                  width: 120,
-                                  height: 120,
-                                  decoration: BoxDecoration(
-                                    color: page.color.withValues(alpha: 0.1),
-                                    borderRadius: BorderRadius.circular(60),
-                                  ),
-                                  child: Icon(
-                                    page.icon,
-                                    size: 60,
-                                    color: page.color,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.asset(
+                                    page.imagePath,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
@@ -467,14 +463,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 class OnboardingPage {
   final String title;
   final String description;
-  final IconData icon;
-  final Color color;
+  final String imagePath;
 
   const OnboardingPage({
     required this.title,
     required this.description,
-    required this.icon,
-    required this.color,
+    required this.imagePath,
   });
 }
 
@@ -485,28 +479,24 @@ final List<OnboardingPage> _onboardingPages = [
     title: 'Riduci lo Spreco',
     description:
         'Tieni traccia degli alimenti in scadenza e riduci lo spreco alimentare con notifiche intelligenti.',
-    icon: Icons.eco,
-    color: AppTheme.green,
+    imagePath: 'assets/images/reduce_waste.jpg',
   ),
   const OnboardingPage(
     title: 'Organizza la Dispensa',
     description:
         'Gestisci facilmente tutti i tuoi alimenti con categorie, date di scadenza e quantità.',
-    icon: Icons.kitchen,
-    color: AppTheme.orange,
+    imagePath: 'assets/images/manage_pantry.png',
   ),
   const OnboardingPage(
     title: 'Lista della Spesa Smart',
     description:
         'Crea liste della spesa intelligenti basate sui tuoi consumi e alimenti in esaurimento.',
-    icon: Icons.shopping_cart,
-    color: AppTheme.blue,
+    imagePath: 'assets/images/shopping_list.jpg',
   ),
   const OnboardingPage(
     title: 'Inizia il Viaggio',
     description:
         'Sei pronto per trasformare il modo in cui gestisci la tua dispensa e ridurre gli sprechi!',
-    icon: Icons.rocket_launch,
-    color: AppTheme.primaryColor,
+    imagePath: 'assets/images/start_your_journey.jpg',
   ),
 ];

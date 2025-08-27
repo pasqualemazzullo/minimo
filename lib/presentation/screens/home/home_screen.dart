@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'dart:math';
 
 import '../../../data/models/inventory_model.dart';
 import '../../../data/models/food_item_model.dart';
@@ -316,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Minimo', style: AppTheme.textLargeBold),
+        title: const Text('Minimo'),
         backgroundColor: AppTheme.white,
         foregroundColor: AppTheme.black,
         elevation: 0,
@@ -849,6 +850,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 16),
+                      // Grafico degli obiettivi
+                      _GoalChart(
+                        currentExpired: currentExpiredItems,
+                        currentOutOfStock: currentOutOfStock,
+                        currentWastage: currentFoodWastagePercent,
+                      ),
                     ],
                   ],
                 ),
@@ -902,5 +910,161 @@ class _IndicatorCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+// Widget per il progresso del consumo con mascotte
+class _GoalChart extends StatelessWidget {
+  final int currentExpired;
+  final int currentOutOfStock;
+  final double currentWastage;
+
+  const _GoalChart({
+    required this.currentExpired,
+    required this.currentOutOfStock,
+    required this.currentWastage,
+  });
+
+  // Calcola la percentuale di consumo prima del ricompro (0.0 a 1.0)
+  double _calculateConsumptionProgress() {
+    double baseConsumption = 25;
+    double penalty =
+        (currentExpired * 5.0) +
+        (currentOutOfStock * 3.0) +
+        (currentWastage * 2.0);
+    double consumption = (baseConsumption - penalty).clamp(0.0, 100.0);
+    return consumption / 100.0; // Converte in 0.0-1.0
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final progress = _calculateConsumptionProgress();
+
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: const BorderSide(color: AppTheme.cardBorder),
+      ),
+      elevation: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: FoodProgressWidget(
+          progress: progress,
+          mascotImagePath: 'assets/images/mascot_progress_circle_bad.png',
+        ),
+      ),
+    );
+  }
+}
+
+// Widget personalizzato per il progresso alimentare
+class FoodProgressWidget extends StatelessWidget {
+  final double progress; // 0.0 a 1.0
+  final String mascotImagePath;
+
+  const FoodProgressWidget({
+    super.key,
+    required this.progress,
+    required this.mascotImagePath,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            // Grafico semicircolare
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final maxWidth = constraints.maxWidth;
+                return CustomPaint(
+                  size: Size(
+                    maxWidth,
+                    maxWidth * 0.5,
+                  ), // Larghezza 100%, altezza 60%
+                  painter: SemiCircleProgressPainter(progress),
+                );
+              },
+            ),
+            // Mascotte al centro
+            Positioned(
+              bottom: 0,
+              child: Image.asset(mascotImagePath, width: 150, height: 150),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Text("Obiettivo:", style: AppTheme.headline3),
+        const SizedBox(height: 8),
+        Text(
+          "Consumare tutti gli alimenti in frigo\nprima di ricomprarli!",
+          textAlign: TextAlign.center,
+          style: AppTheme.bodyText2,
+        ),
+      ],
+    );
+  }
+}
+
+// Painter personalizzato per il grafico semicircolare
+class SemiCircleProgressPainter extends CustomPainter {
+  final double progress; // 0.0 a 1.0
+
+  SemiCircleProgressPainter(this.progress);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height);
+    final radius = size.width / 2 - 10;
+
+    // Disegna l'arco di sfondo (grigio)
+    final backgroundPaint =
+        Paint()
+          ..color = AppTheme.grey200
+          ..strokeWidth = 30
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      pi, // Inizia da sinistra (180 gradi)
+      pi, // Semicerchio completo (180 gradi)
+      false,
+      backgroundPaint,
+    );
+
+    // Disegna l'arco del progresso (con gradiente)
+    final progressPaint =
+        Paint()
+          ..shader = LinearGradient(
+            begin: Alignment(-1.0, 0.0), // Inizia da sinistra (180°)
+            end: Alignment(1.0, 0.0), // Finisce a destra (0°/360°)
+            colors: [
+              AppTheme.errorColor, // Rosso (sinistra - 0%)
+              AppTheme.orange, // Arancione (centro - 50%)
+              AppTheme.successColor, // Verde (destra - 100%)
+            ],
+            stops: const [0.0, 0.5, 1.0],
+          ).createShader(Rect.fromCircle(center: center, radius: radius))
+          ..strokeWidth = 30
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      pi, // Inizia da sinistra (180 gradi)
+      pi * progress, // Progresso attuale
+      false,
+      progressPaint,
+    );
+
+    // Tacche rimosse
+  }
+
+  @override
+  bool shouldRepaint(SemiCircleProgressPainter oldDelegate) {
+    return oldDelegate.progress != progress;
   }
 }

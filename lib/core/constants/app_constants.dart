@@ -1,6 +1,7 @@
 class AppConstants {
   static const String appName = 'Minimo';
   static const String fontFamily = 'ArticulatCF';
+  static const String headlineFontFamily = 'Recoleta';
   
   // API Constants
   static const int apiTimeoutDuration = 30000; // 30 seconds

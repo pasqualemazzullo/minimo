@@ -26,7 +26,7 @@ class CustomBottomBar extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
       padding: EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
-        color: AppTheme.black,
+        color: AppTheme.bottomBarBgColor,
         borderRadius: BorderRadius.circular(99),
       ),
       child: LayoutBuilder(
@@ -48,7 +48,7 @@ class CustomBottomBar extends StatelessWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: AppTheme.primaryColor,
+                    color: AppTheme.selectedBg,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -68,7 +68,7 @@ class CustomBottomBar extends StatelessWidget {
                       child: Center(
                         child: Icon(
                           icon,
-                          color: selected ? AppTheme.white : AppTheme.grey,
+                          color: selected ? AppTheme.grey : AppTheme.white,
                           size: 24,
                         ),
                       ),

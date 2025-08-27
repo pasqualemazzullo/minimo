@@ -22,23 +22,24 @@ class AppTheme {
   static const Color grey700 = Color(0xFF4B5563);
 
   // Theme colors
-  static const Color primaryColor = Color(0xFF006C59);
+  static const Color primaryColor = Color(0xFF64C827);
   static const Color chipBg = grey50;
   static const Color chipBorder = Color(0xFFF5F5F5);
   static const Color chipText = Color(0xFFA5A7A9);
-  static const Color chipSelectedBg = Color(0xFF006C59);
-  static const Color chipSelectedBorder = Color(0xFF006C59);
+  static const Color chipSelectedBg = Color(0xFF64C827);
+  static const Color chipSelectedBorder = Color(0xFF64C827);
   static const Color chipSelectedText = Color(0xFFFFFFFF);
   static const Color unselectedText = Color(0xFFA5A7A9);
   static const Color unselectedBorder = Color(0xFFEDEDED);
-  static const Color selectedBg = Color(0xFF006C59);
+  static const Color selectedBg = Color(0xFFDFF3FE);
   static const Color selectedText = Color(0xFFFFFFFF);
   static const Color selectedBorder = Color(0xFF006C59);
   static const Color cardBorder = Color(0xFFF5F5F5);
   static const Color outOfStockLabel = Colors.amber;
   static const Color errorColor = Color(0xFF991B1B);
-  static const Color successColor = Color(0xFF059669);
+  static const Color successColor = Color(0xFF64C827);
   static const Color warningColor = Color(0xFFD97706);
+  static const Color bottomBarBgColor = Color(0xFF48C5C6);
 
   // Alert colors
   static const Color alertRedBackground = Color(0xFFFEF2F2);
@@ -57,21 +58,21 @@ class AppTheme {
   static const TextStyle headline1 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
-    fontFamily: AppConstants.fontFamily,
+    fontFamily: AppConstants.headlineFontFamily,
     color: Colors.black87,
   );
 
   static const TextStyle headline2 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    fontFamily: AppConstants.fontFamily,
+    fontFamily: AppConstants.headlineFontFamily,
     color: Colors.black87,
   );
 
   static const TextStyle headline3 = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w600,
-    fontFamily: AppConstants.fontFamily,
+    fontFamily: AppConstants.headlineFontFamily,
     color: Colors.black87,
   );
 
@@ -147,7 +148,7 @@ class AppTheme {
 
   static const TextStyle textExtraLargeBold = TextStyle(
     fontSize: 24,
-    fontFamily: AppConstants.fontFamily,
+    fontFamily: AppConstants.headlineFontFamily,
     fontWeight: FontWeight.bold,
     color: Colors.black87,
   );
@@ -167,7 +168,7 @@ class AppTheme {
         titleTextStyle: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
-          fontFamily: AppConstants.fontFamily,
+          fontFamily: AppConstants.headlineFontFamily,
           color: Colors.black,
         ),
       ),

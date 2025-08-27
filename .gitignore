@@ -64,4 +64,21 @@ app.*.map.json
 # IDE
 .vscode/settings.json
 .vscode/launch.json
+
+# Claude AI files
 .claude/
+CLAUDE.md
+
+# Android build artifacts and configuration
+android/local.properties
+android/app/.cxx/
+android/.gradle/
+*.iml
+
+# iOS build artifacts
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/flutter_export_environment.sh
+
+# macOS
+.DS_Store

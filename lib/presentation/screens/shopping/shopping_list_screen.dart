@@ -86,10 +86,12 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
       loadedItems = await DatabaseService.getShoppingListItems(inventoryId);
     }
 
-    setState(() {
-      shoppingListItems = loadedItems;
-      _isInventoryShared = isShared;
-    });
+    if (mounted) {
+      setState(() {
+        shoppingListItems = loadedItems;
+        _isInventoryShared = isShared;
+      });
+    }
   }
 
   @override
@@ -138,13 +140,24 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                   child:
                       shoppingListItems.isEmpty
                           ? Center(
-                            child: Text(
-                              'Aggiungi dei prodotti alla lista della spesa!',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: AppTheme.grey600,
-                                fontSize: 16,
-                              ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/images/shopping_list_empty.png',
+                                  width: 300,
+                                  height: 300,
+                                ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  'Mmmmh di che cosa avrai voglia oggi?',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: AppTheme.grey600,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
                             ),
                           )
                           : ListView(
@@ -207,7 +220,8 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                                               ),
                                               backgroundColor:
                                                   AppTheme.successColor,
-                                              behavior: SnackBarBehavior.floating,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(12),
@@ -223,25 +237,26 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                                           ScaffoldMessenger.of(
                                             context,
                                           ).showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Errore nell\'eliminazione: $e',
-                                              style: const TextStyle(
-                                                color: AppTheme.white,
+                                            SnackBar(
+                                              content: Text(
+                                                'Errore nell\'eliminazione: $e',
+                                                style: const TextStyle(
+                                                  color: AppTheme.white,
+                                                ),
+                                              ),
+                                              backgroundColor:
+                                                  AppTheme.errorColor,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              duration: const Duration(
+                                                seconds: 4,
                                               ),
                                             ),
-                                            backgroundColor:
-                                                AppTheme.errorColor,
-                                            behavior: SnackBarBehavior.floating,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            duration: const Duration(
-                                              seconds: 4,
-                                            ),
-                                          ),
-                                        );
+                                          );
                                         }
                                       }
                                     },
@@ -353,29 +368,29 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                                                   ScaffoldMessenger.of(
                                                     context,
                                                   ).showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Errore nell\'aggiornamento: $e',
-                                                      style: const TextStyle(
-                                                        color: AppTheme.white,
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Errore nell\'aggiornamento: $e',
+                                                        style: const TextStyle(
+                                                          color: AppTheme.white,
+                                                        ),
+                                                      ),
+                                                      backgroundColor:
+                                                          AppTheme.errorColor,
+                                                      behavior:
+                                                          SnackBarBehavior
+                                                              .floating,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              12,
+                                                            ),
+                                                      ),
+                                                      duration: const Duration(
+                                                        seconds: 4,
                                                       ),
                                                     ),
-                                                    backgroundColor:
-                                                        AppTheme.errorColor,
-                                                    behavior:
-                                                        SnackBarBehavior
-                                                            .floating,
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            12,
-                                                          ),
-                                                    ),
-                                                    duration: const Duration(
-                                                      seconds: 4,
-                                                    ),
-                                                  ),
-                                                );
+                                                  );
                                                 }
                                               }
                                             },
@@ -403,28 +418,29 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                                                 ScaffoldMessenger.of(
                                                   context,
                                                 ).showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Errore nell\'aggiornamento: $e',
-                                                    style: const TextStyle(
-                                                      color: AppTheme.white,
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Errore nell\'aggiornamento: $e',
+                                                      style: const TextStyle(
+                                                        color: AppTheme.white,
+                                                      ),
+                                                    ),
+                                                    backgroundColor:
+                                                        AppTheme.errorColor,
+                                                    behavior:
+                                                        SnackBarBehavior
+                                                            .floating,
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            12,
+                                                          ),
+                                                    ),
+                                                    duration: const Duration(
+                                                      seconds: 4,
                                                     ),
                                                   ),
-                                                  backgroundColor:
-                                                      AppTheme.errorColor,
-                                                  behavior:
-                                                      SnackBarBehavior.floating,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          12,
-                                                        ),
-                                                  ),
-                                                  duration: const Duration(
-                                                    seconds: 4,
-                                                  ),
-                                                ),
-                                              );
+                                                );
                                               }
                                             }
                                           },

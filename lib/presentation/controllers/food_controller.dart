@@ -43,6 +43,12 @@ class FoodController extends ChangeNotifier {
         .length;
   }
 
+  int get freshItemsCount {
+    return _allFoodItems
+        .where((item) => item.status == FoodStatus.fresh)
+        .length;
+  }
+
   FoodItemModel? get nextExpiringItem {
     final validItems =
         _allFoodItems

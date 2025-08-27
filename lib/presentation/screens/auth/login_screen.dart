@@ -8,6 +8,7 @@ import '../../../core/utils/validators.dart';
 import '../../../core/utils/result.dart';
 import '../../../shared/theme/app_theme.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/app_controller.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -47,7 +48,18 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         (user) {
           _showSuccessSnackBar('Accesso effettuato con successo!');
-          // Il redirect sarà gestito automaticamente dal listener nell'AppController
+          // Notifica l'AppController che l'autenticazione è avvenuta con successo
+          context.read<AppController>().setAuthenticated(true);
+          
+          // Forza il redirect usando Navigator
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                AppConstants.homeRoute, 
+                (route) => false,
+              );
+            }
+          });
         },
       );
     }
@@ -127,14 +139,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
-                          'Rieccoci!',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.black,
-                          ),
+                          'Pronto a salvare un altro avocado?',
+                          textAlign: TextAlign.center,
+                          style: AppTheme.headline2,
                         ),
                         const SizedBox(height: 5),
                         Text(

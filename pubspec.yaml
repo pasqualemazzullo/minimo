@@ -30,8 +30,18 @@ flutter:
 
   assets:
     - .env
+    - assets/images/shopping_list_empty.png
+    - assets/images/inventory_empty.png
+    - assets/images/mascot_progress_circle_bad.png
+    - assets/images/reduce_waste.jpg
+    - assets/images/shopping_list.jpg
+    - assets/images/manage_pantry.png
+    - assets/images/start_your_journey.jpg
 
   fonts:
     - family: ArticulatCF
       fonts:
         - asset: assets/fonts/ArticulatCF-Regular.otf
+    - family: Recoleta
+      fonts:
+        - asset: assets/fonts/Recoleta-RegularDEMO.otf
